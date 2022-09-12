@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Company Management System</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css"
+        integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN"
+        crossorigin="anonymous">
+  <script>
+        function openPopup(id){
+            let confirmAction = confirm("Are you sure to delete this company?");
+            if (confirmAction) {
+              window.location = '/deleteCompany/'+id;
+            }
+        }
+    </script>
+
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <div class="container-fluid">
+    <ul class="navbar-nav me-auto">
+      <li class="nav-item">
+        <a class="nav-link" th:href="@{/employee}">Employee</a>
+      </li>
+    </ul>
+    <div class="collapse navbar-collapse" id="navbarColor01">
+      <ul class="navbar-nav me-auto">
+        <li class="nav-item">
+          <a class="nav-link" th:href="@{/company}">Company</a>
+        </li>
+      </ul>
+      <div class="collapse navbar-collapse ml-5" id="navbarColor0">
+        <ul class="navbar-nav me-auto">
+          <li class="nav-item">
+            <form th:action="@{/login}" method="post">
+              <input type="submit" class="btn nav-link" value="Log In"/>
+            </form>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</nav>
+<div class="container my-2">
+  <h1>Companies List</h1>
+  <a th:href="@{/showNewCompany}" class="btn mb-2 mt-4 bg-primary">Add Company</a>
+  <table class="table table-responsive-md">
+    <thead>
+    <tr>
+      <th>Company Name</th>
+      <th>Actions</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="company:${listCompanies}">
+      <td th:text="${company.name}"></td>
+      <td><a th:href="@{/showFormForUpdateCompany/{id}(id=${company.id})}" class="btn btn-primary mr-2">Update</a>
+          <a class="btn btn-danger" th:attr="onclick=|openPopup('${company.id}')|">Delete</a>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+  <a th:href = "@{/}"> Back to Main Page</a>
+</div>
+</body>
+</html>

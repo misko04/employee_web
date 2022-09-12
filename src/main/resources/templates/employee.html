@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="ISO-8859-1">
+    <title>Employee Management System</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css"
+          integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN"
+          crossorigin="anonymous">
+    <script>
+        function openPopup(id){
+            let confirmAction = confirm("Are you sure to delete this employee?");
+            if (confirmAction) {
+              window.location = '/deleteEmployee/'+id;
+            }
+        }
+    </script>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/employee}">Employee</a>
+            </li>
+        </ul>
+        <div class="collapse navbar-collapse" id="navbarColor01">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/company}">Company</a>
+                </li>
+            </ul>
+            <div class="collapse navbar-collapse ml-5" id="navbarColor0">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <form th:action="@{/login}" method="post">
+                            <input type="submit" class="btn nav-link" value="Log In"/>
+                        </form>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</nav>
+<div class="container my-2">
+    <h1>Employees List</h1>
+    <a th:href="@{/showNewEmployee}" class="btn btn-primary mb-4"> Add Employee </a>
+    <table class="table table-responsive-md">
+        <thead>
+        <tr>
+            <th>Title</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Email</th>
+            <th>Birth Date</th>
+            <th>Company</th>
+            <th> Actions </th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="employee:${listEmployees}">
+            <td th:text="${employee.title}"></td>
+            <td th:text="${employee.firstName}"></td>
+            <td th:text="${employee.lastName}"></td>
+            <td th:text="${employee.email}"></td>
+            <td th:text="${employee.birthDate}"></td>
+            <td th:text="${employee.company.name}"></td>
+            <td><a th:href="@{/showFormForUpdate/{id}(id=${employee.id})}" class="btn btn-primary">Update</a>
+                <a class="btn btn-danger" th:attr="onclick=|openPopup('${employee.id}')|">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <a th:href = "@{/}"> Back to Main Page</a>
+</div>
+</body>
+</html>

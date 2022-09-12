@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Employee Management System</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css"
+          integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN"
+          crossorigin="anonymous">
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+    <div class="container-fluid">
+        <ul class="navbar-nav me-auto">
+            <li class="nav-item">
+                <a class="nav-link" th:href="@{/employee}">Employee</a>
+            </li>
+        </ul>
+        <div class="collapse navbar-collapse">
+            <ul class="navbar-nav me-auto">
+                <li class="nav-item">
+                    <a class="nav-link" th:href="@{/company}">Company</a>
+                </li>
+            </ul>
+            <div class="collapse navbar-collapse ml-5">
+                <ul class="navbar-nav me-auto">
+                    <li class="nav-item">
+                        <form th:action="@{/login}" method="post">
+                            <input type="submit" class="btn nav-link" value="Log In"/>
+                        </form>
+                    </li>
+                    <a class="nav-link" th:href="@{/showNewUser}">Register</a>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>
+</div>
+</body>
+</html>

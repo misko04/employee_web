@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Employee Management System</title>
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css"
+        integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN"
+        crossorigin="anonymous">
+</head>
+<body>
+<div class="container">
+  <h1>Employee Management System</h1>
+  <hr>
+  <h2>Save Employee</h2>
+  <form action="#" th:action="@{/saveEmployee}" th:object="${employee}"
+        method="POST">
+    <input type="text" th:field="*{title}"
+           placeholder="Employee Title" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{firstName}"
+           placeholder="Employee First Name" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{lastName}"
+           placeholder="Employee Last Name" class="form-control mb-4 col-4">
+    <input type="text" th:field="*{email}"
+           placeholder="Employee Email" class="form-control mb-4 col-4">
+    <input type="date"  th:field="*{birthDate}" placeholder="Employee Birthday" class="form-control mb-4 col-4">
+    <select class="form-control mb-4 col-4" id="exampleSelect1" th:field="*{company.id}">
+      <option value="0">Company</option>
+      <option th:each="comp:${companies}" th:value="${comp.id}" th:text="${comp.name}"></option>
+    </select>
+    <button type="submit" class="btn btn-info col-2"> Save Employee</button>
+  </form>
+  <hr>
+  <a th:href = "@{/employee}"> Back to Employee List</a>
+</div>
+</body>
+</html>
