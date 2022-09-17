@@ -8,6 +8,7 @@ import com.pt.springsecurityjpa.repository.UserRepository;
 import com.pt.springsecurityjpa.service.CompanyService;
 import com.pt.springsecurityjpa.service.EmployeeService;
 import com.pt.springsecurityjpa.service.RolesService;
+import com.pt.springsecurityjpa.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
-
 @Controller
 public class WebController {
     @Autowired
@@ -26,36 +26,26 @@ public class WebController {
     @Autowired
     private CompanyService companyService;
     @Autowired
+    private UserService userService;
+    @Autowired
     private UserRepository userRepository;
     @Autowired
     private RoleRepository roleRepository;
     @Autowired
     private BCryptPasswordEncoder passwordEncoder;
-
     @GetMapping("/")
-    public String homePage(){
+    public String homePage() {
         return "index";
     }
     @GetMapping("/employee")
-    public String employeePage(Model model){
+    public String employeePage(Model model) {
         model.addAttribute("listEmployees", employeeService.getAllEmployees());
         return "employee";
     }
     @GetMapping("/company")
-    public String departmentPage(Model model){
+    public String companyPage(Model model) {
         model.addAttribute("listCompanies", companyService.getAllCompanies());
         return "company";
-    }
-    @GetMapping("/admin")
-    public String configurationPage(){
-        return "admin";
-    }
-    @GetMapping("/showNewUser")
-    public String viewRegistration(Model model){
-        User user = new User();
-        model.addAttribute("user", user);
-        model.addAttribute("listOfRoles", rolesService.getAllRoles());
-        return "add-user";
     }
     @GetMapping("/showNewEmployee")
     public String showNewEmployeeForm(Model model) {
@@ -88,7 +78,7 @@ public class WebController {
         userRepository.save(user);
         return "redirect:/";
     }
-    @GetMapping("/showFormForUpdate/{id}")
+    @GetMapping("/showFormForUpdateEmployee/{id}")
     public String showFormForUpdate(@PathVariable(value = "id") long id, Model model) {
         Employee employee = employeeService.getEmployeeById(id);
         model.addAttribute("employee", employee);
@@ -110,5 +100,32 @@ public class WebController {
     public String deleteCompany(@PathVariable(value = "id") long id) {
         this.companyService.deleteCompanyById(id);
         return "redirect:/company";
+    }
+    @GetMapping("/admin")
+    public String adminEdit(Model model) {
+        model.addAttribute("listUsers", userService.getAllUsers());
+        return "admin";
+    }
+    @GetMapping("/admin/updateUser/{id}")
+    public String updateUser(@PathVariable(value = "id") long id, Model model) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("listOfRoles", rolesService.getAllRoles());
+        return "update_user";
+    }
+    @GetMapping("/showNewUser")
+    public String viewRegistration(Model model) {
+        User user = new User();
+        model.addAttribute("user", user);
+        model.addAttribute("listOfRoles", rolesService.getAllRoles());
+        return "add-user";
+    }
+    @PostMapping("/saveUser")
+    public String saveUser(@ModelAttribute("user") User user) {
+        String pwd = user.getPassword();
+        String encryptPwd = passwordEncoder.encode(pwd);
+        user.setPassword(encryptPwd);
+        userRepository.save(user);
+        return "redirect:/admin";
     }
 }

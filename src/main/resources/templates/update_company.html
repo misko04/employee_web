@@ -1,26 +1,30 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <title>Company Management System</title>
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css"
-        integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN"
-        crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Company Management System</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css"
+          integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2"
+          crossorigin="anonymous">
 </head>
 <body>
 <div class="container">
-  <h1>Employee Management System</h1>
-  <hr>
-  <h2>Update Company</h2>
-  <form action="#" th:action="@{/saveCompany}" th:object="${company}" method="POST">
-    <label class="form-label mt-2" for="inputFirstName">Name</label>
-    <input type="hidden" th:field="*{id}" />
-    <input id="inputFirstName" type="text" th:field="*{name}" class="form-control mb-4 col-4">
-    <button type="submit" class="btn btn-info col-2">Update Company</button>
-  </form>
-  <hr>
-  <a th:href = "@{/company}"> Back to Company list</a>
+    <h1>Employee Management System</h1>
+    <hr>
+    <h2>Update Company</h2>
+    <form action="#" th:action="@{/saveCompany}" th:object="${company}" method="POST">
+        <label class="form-label mt-2" for="inputFirstName">Name</label>
+        <label class="form-label mt-2" for="inputEmail">Email</label>
+        <label class="form-label mt-2" for="inputFirstName">Phone Number</label>
+        <input type="hidden" th:field="*{id}"/>
+        <input id="inputFirstName" type="text" th:field="*{name}" class="form-control mb-4 col-4">
+        <input id="inputEmail" type="text" th:field="*{email}" class="form-control mb-4 col-4">
+        <input id="inputPhoneNumber" type="text" th:field="*{phoneNumber}" class="form-control mb-4 col-4">
+        <button type="submit" class="btn btn-success col-2">Update Company</button>
+    </form>
+    <hr>
+    <a th:href="@{/company}"> Back to Company list</a>
 </div>
 
 </body>

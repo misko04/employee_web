@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<head>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css"
+          integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2"
+          crossorigin="anonymous">
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div class="container">
+    <h1>Register new user</h1>
+    <hr>
+    <form action="#" th:action="@{/saveUser}" th:object="${user}" method="POST">
+        <input type="hidden" th:field="*{id}"/>
+        <input style="color:black" type="text" th:field="*{userName}" class="form-control col-4 mb-4" id="inputLogin"
+               placeholder="Enter username">
+        <input style="color:black" type="password" th:field="*{password}" class="form-control col-4 mb-4"
+               id="inputPassword" placeholder="Enter password">
+        <input style="color:black" type="email" th:field="*{email}" class="form-control col-4 mb-4" id="inputEmail"
+               placeholder="Enter email">
+        </p>
+        <select class="form-select" id="Select1" th:field="*{roles}">
+            <option th:each="rol:${listOfRoles}" th:value="${rol.id}" th:text="${rol.role}">role</option>
+        </select>
+        </p>
+        <button type="submit" class="btn btn-success col-3">Update User</button>
+    </form>
+    <hr>
+    <a th:href="@{/admin}"> Back to administration page</a>
+</div>
+</body>
+</html>

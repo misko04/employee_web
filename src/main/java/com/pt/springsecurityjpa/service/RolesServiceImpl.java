@@ -1,4 +1,5 @@
 package com.pt.springsecurityjpa.service;
+
 import com.pt.springsecurityjpa.model.Role;
 import com.pt.springsecurityjpa.repository.RoleRepository;
 import org.springframework.beans.factory.annotation.Autowired;

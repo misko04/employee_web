@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>Company Management System</title>
     <link rel="stylesheet"
-          href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css"
-          integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN"
+          href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css"
+          integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2"
           crossorigin="anonymous">
 </head>
 <body>
@@ -13,15 +13,15 @@
     <h1>Company Management System</h1>
     <hr>
     <h2>New Company</h2>
-
     <form action="#" th:action="@{/saveCompany}" th:object="${company}" method="POST">
-        <input type="text" th:field="*{name}"
-                placeholder="Company name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{name}" placeholder="Company name" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{email}" placeholder="Company email" class="form-control mb-4 col-4">
+        <input type="text" th:field="*{phoneNumber}" placeholder="Company phone number" class="form-control mb-4 col-4">
         </p>
-        <button type="submit" class="btn btn-info col-3">Save Company</button>
+        <button type="submit" class="btn btn-success col-3">Save Company</button>
     </form>
     <hr>
-    <a th:href = "@{/company}">Back to company list</a>
+    <a th:href="@{/company}">Back to company list</a>
 </div>
 </body>
 </html>

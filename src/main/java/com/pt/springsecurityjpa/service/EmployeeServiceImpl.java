@@ -1,4 +1,5 @@
 package com.pt.springsecurityjpa.service;
+
 import com.pt.springsecurityjpa.model.Employee;
 import com.pt.springsecurityjpa.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,25 +8,30 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 import java.util.Optional;
 @Service
-public class EmployeeServiceImpl implements EmployeeService{
+public class EmployeeServiceImpl implements EmployeeService {
     @Autowired
     private EmployeeRepository employeeRepository;
     @Override
-    public List<Employee> getAllEmployees() {return employeeRepository.findAll();}
+    public List<Employee> getAllEmployees() {
+        return employeeRepository.findAll();
+    }
     @Override
-    public void saveEmployee(Employee employee) {this.employeeRepository.save(employee);}
+    public void saveEmployee(Employee employee) {
+        this.employeeRepository.save(employee);
+    }
     @Override
     public Employee getEmployeeById(long id) {
         Optional<Employee> optional = employeeRepository.findById(id);
         Employee employee = null;
-        if(optional.isPresent()){
+        if (optional.isPresent()) {
             employee = optional.get();
-        }
-        else {
-            throw new RuntimeException("Employee not foud for id :: " +id);
+        } else {
+            throw new RuntimeException("Employee not foud for id :: " + id);
         }
         return employee;
     }
     @Override
-    public void deleteEmployeeById(long id) {this.employeeRepository.deleteById(id);}
+    public void deleteEmployeeById(long id) {
+        this.employeeRepository.deleteById(id);
+    }
 }

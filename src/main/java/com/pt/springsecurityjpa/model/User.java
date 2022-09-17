@@ -15,7 +15,6 @@ public class User {
     private String password;
     @Column(unique = true)
     private String email;
-    private Boolean active;
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
     private List<Role> roles;
@@ -36,12 +35,6 @@ public class User {
     }
     public void setPassword(String password) {
         this.password = password;
-    }
-    public Boolean getActive() {
-        return active;
-    }
-    public void setActive(Boolean active) {
-        this.active = active;
     }
     public List<Role> getRoles() {
         return roles;

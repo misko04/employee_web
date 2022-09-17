@@ -11,14 +11,22 @@ import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 @EnableWebSecurity
-public class SecurityConfiguration  {
+public class SecurityConfiguration {
     @Autowired
     UserDetailsService userDetailService;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
-                .antMatchers("/admin","/showNewEmployee","/showNewCompany","/showFormForUpdate/{id}","/showFormForUpdateCompany/{id}","/deleteEmployee/{id}","/deleteCompany/{id}").hasRole("ADMIN")
-                .antMatchers("/employee","/company").hasAnyRole("ADMIN","USER")
+                .antMatchers("/admin",
+                        "/showNewEmployee",
+                        "/showNewCompany",
+                        "/showFormForUpdateEmployee/{id}",
+                        "/saveEmployee",
+                        "/showFormForUpdateCompany/{id}",
+                        "/saveCompany",
+                        "/deleteEmployee/{id}",
+                        "/deleteCompany/{id}").hasRole("ADMIN")
+                .antMatchers("/employee", "/company").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/").permitAll()
                 .and().formLogin();
         http.csrf().disable();

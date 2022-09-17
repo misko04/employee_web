@@ -1,4 +1,5 @@
 package com.pt.springsecurityjpa.service;
+
 import com.pt.springsecurityjpa.model.MyUserDetails;
 import com.pt.springsecurityjpa.model.User;
 import com.pt.springsecurityjpa.repository.UserRepository;
@@ -15,9 +16,7 @@ public class UserDetailsServiceImpl implements org.springframework.security.core
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Optional<User> user = userRepository.findByUserName(username);
-
         user.orElseThrow(() -> new UsernameNotFoundException("Not found: " + username));
-
         return user.map(MyUserDetails::new).get();
     }
 }

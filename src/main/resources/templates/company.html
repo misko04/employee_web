@@ -1,68 +1,75 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
-  <meta charset="UTF-8">
-  <title>Company Management System</title>
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css"
-        integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN"
-        crossorigin="anonymous">
-  <script>
+    <meta charset="UTF-8">
+    <title>Company Management System</title>
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css"
+          integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2"
+          crossorigin="anonymous">
+    <script>
         function openPopup(id){
             let confirmAction = confirm("Are you sure to delete this company?");
             if (confirmAction) {
               window.location = '/deleteCompany/'+id;
             }
         }
+
     </script>
 
 </head>
 <body>
-<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
-  <div class="container-fluid">
-    <ul class="navbar-nav me-auto">
-      <li class="nav-item">
-        <a class="nav-link" th:href="@{/employee}">Employee</a>
-      </li>
-    </ul>
-    <div class="collapse navbar-collapse" id="navbarColor01">
-      <ul class="navbar-nav me-auto">
-        <li class="nav-item">
-          <a class="nav-link" th:href="@{/company}">Company</a>
-        </li>
-      </ul>
-      <div class="collapse navbar-collapse ml-5" id="navbarColor0">
-        <ul class="navbar-nav me-auto">
-          <li class="nav-item">
-            <form th:action="@{/login}" method="post">
-              <input type="submit" class="btn nav-link" value="Log In"/>
-            </form>
-          </li>
+<nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul sec:authorize="isAuthenticated()" class="navbar-nav">
+            <li class="nav-item ">
+                <a class="nav-link" th:href="@{/}">Home<span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('USER')" class="nav-link" th:href="@{/employee}">Employee</a>
+                <a sec:authorize="hasRole('ADMIN')" class="nav-link" th:href="@{/employee}">Employee Administration</a>
+            </li>
+            <li class="nav-item">
+                <a sec:authorize="hasRole('USER')" class="nav-link" th:href="@{/company}">Company</a>
+                <a sec:authorize="hasRole('ADMIN')" class="nav-link" th:href="@{/company}">Company Administration</a>
+            </li>
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item">
+                <a class="nav-link" th:href="@{/admin}">User Administration</a>
+            </li>
         </ul>
-      </div>
     </div>
-  </div>
+    <div sec:authorize="isAuthenticated()" sec:authentication="name" class="my-lg-0 "></div>
+    <ul class="navbar-nav ">
+        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
+            <input type="submit" class="btn nav-link" value="Log Out"/>
+        </form>
+    </ul>
 </nav>
 <div class="container my-2">
-  <h1>Companies List</h1>
-  <a th:href="@{/showNewCompany}" class="btn mb-2 mt-4 bg-primary">Add Company</a>
-  <table class="table table-responsive-md">
-    <thead>
-    <tr>
-      <th>Company Name</th>
-      <th>Actions</th>
-    </tr>
-    </thead>
-    <tbody>
-    <tr th:each="company:${listCompanies}">
-      <td th:text="${company.name}"></td>
-      <td><a th:href="@{/showFormForUpdateCompany/{id}(id=${company.id})}" class="btn btn-primary mr-2">Update</a>
-          <a class="btn btn-danger" th:attr="onclick=|openPopup('${company.id}')|">Delete</a>
-      </td>
-    </tr>
-    </tbody>
-  </table>
-  <a th:href = "@{/}"> Back to Main Page</a>
+    <h1 sec:authorize="hasRole('USER')">Companies List</h1>
+    <h1 sec:authorize="hasRole('ADMIN')">Company administration</h1>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/showNewCompany}" class="btn mb-2 mt-4 btn-primary">Add Company</a>
+    <table class="table table-responsive-md">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Phone Number</th>
+            <th sec:authorize="hasRole('ADMIN')">Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="company:${listCompanies}">
+            <td th:text="${company.name}"></td>
+            <td th:text="${company.email}"></td>
+            <td th:text="${company.phoneNumber}"></td>
+            <td sec:authorize="hasRole('ADMIN')">
+                <a th:href="@{/showFormForUpdateCompany/{id}(id=${company.id})}" class="btn btn-primary mr-2">Edit</a>
+                <a class="btn btn-danger" th:attr="onclick=|openPopup('${company.id}')|">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
 </div>
 </body>
 </html>

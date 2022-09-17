@@ -6,17 +6,16 @@ import org.springframework.security.core.userdetails.UserDetails;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+
 public class MyUserDetails implements UserDetails {
     private String userName;
     private String password;
-    private boolean active;
     private List<GrantedAuthority> authorities;
     public MyUserDetails() {
     }
     public MyUserDetails(User user) {
         this.userName = user.getUserName();
         this.password = user.getPassword();
-        this.active = user.getActive();
         List<GrantedAuthority> authorities = new ArrayList<>();
         for (Role role : user.getRoles()) {
             authorities.add(new SimpleGrantedAuthority(role.getRole()));
@@ -49,6 +48,6 @@ public class MyUserDetails implements UserDetails {
     }
     @Override
     public boolean isEnabled() {
-        return active;
+        return true;
     }
 }

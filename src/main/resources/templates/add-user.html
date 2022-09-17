@@ -1,34 +1,31 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <link rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/darkly/bootstrap.min.css"
-        integrity="sha384-nNK9n28pDUDDgIiIqZ/MiyO3F4/9vsMtReZK39klb/MtkZI3/LtjSjlmyVPS3KdN"
-        crossorigin="anonymous">
-  <title>Registration</title>
+    <meta charset="UTF-8">
+    <link rel="stylesheet"
+          href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css"
+          integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2"
+          crossorigin="anonymous">
+    <title>Registration</title>
 </head>
 <div class="container">
-  <h1>Register new user</h1>
-  <hr>
-  <form action="#" th:action="@{/saveNewUser}" th:object="${user}" method="POST">
-    <label class="form-label mt-4" for="inputLogin">User name</label>
-    <input type="text" th:field="*{userName}" class="form-control col-4" id="inputLogin">
-    <label class="form-label mt-4" for="inputpassword">User password</label>
-    <input type="password" th:field="*{password}" class="form-control col-4" id="inputpassword">
-    <label class="form-label mt-4" for="inputEmail">Email</label>
-    <input type="email" th:field="*{email}" class="form-control col-4" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
-    <label class="form-label mt-4" for="inputActive">Active</label>
-    <input type="checkbox" th:field="*{active}" class="form-control col-4" id="inputActive">
-    <label class="form-label mt-2" for="Select1">Role</label>
-    </p>
-    <select class="form-select" id="Select1" th:field="*{roles}">
-      <option th:each="rol:${listOfRoles}" th:value="${rol.id}" th:text="${rol.role}">role</option>
-    </select>
-    </p>
-    <button type="submit" class="btn btn-info col-3">Register</button>
-  </form>
-  <hr>
-  <a th:href = "@{/}"> Back to home page</a>
+    <h1>Register new user</h1>
+    <hr>
+    <form action="#" th:action="@{/saveNewUser}" th:object="${user}" method="POST">
+        <label class="form-label mt-4" for="inputLogin">User name</label>
+        <input type="text" th:field="*{userName}" class="form-control col-4" id="inputLogin" placeholder="Enter username">
+        <label class="form-label mt-4" for="inputPassword">Password</label>
+        <input type="password" th:field="*{password}" class="form-control col-4" id="inputPassword" placeholder="Enter password">
+        <label class="form-label mt-4" for="inputEmail">Email</label>
+        <input type="email" th:field="*{email}" class="form-control col-4" id="inputEmail" placeholder="Enter email">
+        <p class="d-none">
+            <select class="form-select" id="Select1" th:field="*{roles}">
+                <option th:each="rol:${listOfRoles}" th:value="${rol.id}" th:text="${rol.role}" class="hidden">role</option>
+            </select>
+        </p>
+        <button type="submit" class="btn btn-success col-3 mt-5">Register</button>
+    </form>
+    <hr>
+    <a th:href="@{/}"> Back to home page</a>
 </div>
 </html>
