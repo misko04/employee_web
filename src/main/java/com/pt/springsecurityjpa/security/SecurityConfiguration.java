@@ -14,6 +14,7 @@ import org.springframework.security.web.SecurityFilterChain;
 public class SecurityConfiguration {
     @Autowired
     UserDetailsService userDetailService;
+
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests()
@@ -32,6 +33,7 @@ public class SecurityConfiguration {
         http.csrf().disable();
         return http.build();
     }
+
     @Bean
     public BCryptPasswordEncoder encodePWD() {
         return new BCryptPasswordEncoder();

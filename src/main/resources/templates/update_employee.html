@@ -23,7 +23,8 @@
         <input type="text" th:field="*{birthDate}" class="form-control mb-4 col-4" style="color:black">
         <select class="form-control mb-4 col-4" id="exampleSelect1" th:field="*{company.id}">
             <option value="0">Company</option>
-            <option th:each="comp:${companies}" th:selected="(${comp.id} == *{company.id})" th:text="${comp.name}" th:value="${comp.id}"></option>
+            <option th:each="comp:${companies}" th:selected="(${comp.id} == *{company.id})" th:text="${comp.name}"
+                    th:value="${comp.id}"></option>
         </select>
         <button type="submit" class="btn btn-success col-2" th:href="@{/}"> Update Employee</button>
     </form>
