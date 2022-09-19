@@ -22,9 +22,7 @@
     <div class="collapse navbar-collapse">
         <ul class="navbar-nav">
             <li class="nav-item ">
-                <a class="nav-link" th:href="@{/}"><img
-                        src="https://www.nicepng.com/png/full/115-1153942_white-home-icon-png-white-home-logo-transparent.png"
-                        width="30" height="25"></a>
+                <a class="nav-link" th:href="@{/}"><img src="https://www.nicepng.com/png/full/115-1153942_white-home-icon-png-white-home-logo-transparent.png" width="30" height="25"></a>
             </li>
             <li class="nav-item">
                 <a sec:authorize="hasRole('USER')" class="nav-link" th:href="@{/employee}">Employee</a>
@@ -41,9 +39,7 @@
     </div>
     <ul class="nav navbar-nav dropleft">
         <li class="nav-item dropdown">
-            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img
-                    src="https://icon-library.com/images/profile-icon-white/profile-icon-white-1.jpg" width="30"
-                    height="25"></a>
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img src="https://icon-library.com/images/profile-icon-white/profile-icon-white-1.jpg" width="30" height="25"></a>
             <div class="dropdown-menu text-capitalize">
                 <div sec:authorize="isAuthenticated()" sec:authentication="name" class="ml-4" th:object="${user}"></div>
                 <a class="dropdown-item" sec:authorize="isAuthenticated()" href="/logout">Log Out</a>
@@ -56,8 +52,7 @@
 <div class="container my-2">
     <h1 sec:authorize="hasRole('USER')">Employees List</h1>
     <h1 sec:authorize="hasRole('ADMIN')">Employee Administration</h1>
-    <a sec:authorize="hasRole('ADMIN')" th:href="@{/showNewEmployee}" class="btn mb-2 mt-4 btn-primary"> Add
-        Employee </a>
+    <a sec:authorize="hasRole('ADMIN')" th:href="@{/showNewEmployee}" class="btn mb-2 mt-4 btn-primary"> Add Employee </a>
     <table class="table table-responsive-md">
         <thead>
         <tr>
@@ -67,7 +62,7 @@
             <th>Email</th>
             <th>Birth Date</th>
             <th>Company</th>
-            <th sec:authorize="hasRole('ADMIN')"> Actions</th>
+            <th sec:authorize="hasRole('ADMIN')">Actions</th>
         </tr>
         </thead>
         <tbody>
