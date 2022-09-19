@@ -26,7 +26,8 @@ public class SecurityConfiguration {
                         "/showFormForUpdateCompany/{id}",
                         "/saveCompany",
                         "/deleteEmployee/{id}",
-                        "/deleteCompany/{id}").hasRole("ADMIN")
+                        "/deleteCompany/{id}",
+                        "/updateUser/{id}").hasRole("ADMIN")
                 .antMatchers("/employee", "/company").hasAnyRole("ADMIN", "USER")
                 .antMatchers("/").permitAll()
                 .and().formLogin();

@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <link rel="stylesheet"
           href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css"
@@ -10,7 +10,7 @@
 </head>
 <body>
 <div class="container">
-    <h1>Register new user</h1>
+    <h1 sec:authorize="hasRole('ADMIN')">Edit user</h1>
     <hr>
     <form action="#" th:action="@{/saveUser}" th:object="${user}" method="POST">
         <input type="hidden" th:field="*{id}"/>

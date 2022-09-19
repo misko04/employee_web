@@ -7,15 +7,17 @@
           href="https://cdn.jsdelivr.net/npm/bootswatch@4.5.2/dist/cyborg/bootstrap.min.css"
           integrity="sha384-nEnU7Ae+3lD52AK+RGNzgieBWMnEfgTbRHIwEvp1XXPdqdO6uLTd/NwXbzboqjc2"
           crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
 </head>
 <body>
 <nav class="navbar navbar-expand-lg navbar-dark bg-secondary">
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul sec:authorize="isAuthenticated()" class="navbar-nav">
+    <div class="collapse navbar-collapse">
+        <ul class="navbar-nav">
             <li class="nav-item ">
                 <a class="nav-link" th:href="@{/}"><img
                         src="https://www.nicepng.com/png/full/115-1153942_white-home-icon-png-white-home-logo-transparent.png"
-                        width="30" height="20"></a></li>
+                        width="30" height="25"></a>
+            </li>
             <li class="nav-item">
                 <a sec:authorize="hasRole('USER')" class="nav-link" th:href="@{/employee}">Employee</a>
                 <a sec:authorize="hasRole('ADMIN')" class="nav-link" th:href="@{/employee}">Employee Administration</a>
@@ -29,12 +31,18 @@
             </li>
         </ul>
     </div>
-
-    <div sec:authorize="isAuthenticated()" sec:authentication="name" class="my-lg-0 "></div>
-    <ul class="navbar-nav ">
-        <form sec:authorize="isAuthenticated()" th:action="@{/logout}" method="post">
-            <input type="submit" class="btn nav-link" value="Log Out"/>
-        </form>
+    <ul class="nav navbar-nav dropleft">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" data-bs-toggle="dropdown"><img
+                    src="https://icon-library.com/images/profile-icon-white/profile-icon-white-1.jpg" width="30"
+                    height="25"></a>
+            <div class="dropdown-menu text-capitalize">
+                <div sec:authorize="isAuthenticated()" sec:authentication="name" class="ml-4" th:object="${user}"></div>
+                <a class="dropdown-item" sec:authorize="isAuthenticated()" href="/logout">Log Out</a>
+                <a class="dropdown-item" sec:authorize="isAnonymous()" href="/login">Log In</a>
+                <a class="dropdown-item" sec:authorize="isAnonymous()" href="/showNewUser">Register</a>
+            </div>
+        </li>
     </ul>
 </nav>
 <div class="container my-2">
@@ -52,7 +60,7 @@
             <td th:text="${user.userName}"></td>
             <td th:text="${user.email}"></td>
             <td>
-                <a th:href="@{/admin/updateUser/{id}(id=${user.id})}" class="btn btn-primary mr-2">Edit</a>
+                <a th:href="@{/updateUser/{id}(id=${user.id})}" class="btn btn-primary mr-2">Edit</a>
             </td>
         </tr>
         </tbody>

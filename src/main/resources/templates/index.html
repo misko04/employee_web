@@ -46,6 +46,7 @@
     </ul>
 </nav>
 <h1 class="text-center mt-5">Welcome</h1>
-<h1 sec:authorize="isAuthenticated()" sec:authentication="name" class="text-center"></h1>
+<h5 sec:authorize="isAnonymous()" class="text-center">If you wish to see more content log in to your account or create a new one</h5>
+<h5 sec:authorize="isAuthenticated()" sec:authentication="name" class="text-center text-capitalize"></h5>
 </body>
 </html>

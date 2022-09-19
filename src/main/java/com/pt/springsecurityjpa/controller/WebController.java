@@ -115,26 +115,26 @@ public class WebController {
         return "redirect:/company";
     }
 
-    @GetMapping("/admin")
-    public String adminEdit(Model model) {
-        model.addAttribute("listUsers", userService.getAllUsers());
-        return "admin";
-    }
-
-    @GetMapping("/admin/updateUser/{id}")
-    public String updateUser(@PathVariable(value = "id") long id, Model model) {
-        User user = userService.getUserById(id);
-        model.addAttribute("user", user);
-        model.addAttribute("listOfRoles", rolesService.getAllRoles());
-        return "update_user";
-    }
-
     @GetMapping("/showNewUser")
     public String viewRegistration(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         model.addAttribute("listOfRoles", rolesService.getAllRoles());
         return "add-user";
+    }
+
+    @GetMapping("/admin")
+    public String adminEdit(Model model) {
+        model.addAttribute("listUsers", userService.getAllUsers());
+        return "admin";
+    }
+
+    @GetMapping("/updateUser/{id}")
+    public String updateUser(@PathVariable(value = "id") long id, Model model) {
+        User user = userService.getUserById(id);
+        model.addAttribute("user", user);
+        model.addAttribute("listOfRoles", rolesService.getAllRoles());
+        return "update_user";
     }
 
     @PostMapping("/saveUser")
